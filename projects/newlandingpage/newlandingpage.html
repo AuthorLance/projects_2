@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="newlandingpagecss.css">
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+
+    <div class="background-video-container">
+        <video id="background-video" autoplay loop muted playsinline>
+            <source src="video/videoplayback.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <header>
+        <nav>
+            <div class="logo">LambOfLA</div>
+            <ul>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Subscribe</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="features" class="hidden">
+        <h2>Features</h2>
+        <div class="feature-container">
+            <div class="feature">
+                <div class="feature-image">
+                    <img src="https://wallpapers.com/images/hd/neon-purple-car-need-for-speed-heat-4mpbubvmear16p01.jpg" alt="Speed">
+                </div>
+                <h3>Speed</h3>
+                <p>Unmatched performance and acceleration, bringing adrenaline to your drive.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-image">
+                    <img src="https://img3.wallspic.com/previews/5/0/1/9/7/179105/179105-cars-sports_car-lamborghini_huracan-lamborghini-lamborghini_centenari-550x310.jpg" alt="Design">
+                </div>
+                <h3>Design</h3>
+                <p>Striking and bold aesthetics to make a statement wherever you go.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-image">
+                    <img src="https://img.freepik.com/premium-photo/purple-lamborghini-rain_889227-18295.jpg" alt="Technology">
+                </div>
+                <h3>Technology</h3>
+                <p>Cutting-edge features designed to elevate comfort and performance.</p>
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    
+    <section id="pricing" class="hidden">
+        <h2>Pricing</h2>
+        <div class="pricing-container">
+            <div class="pricing-box">
+                <h3>Basic Plan</h3>
+                <p>Affordable access with essential features.</p>
+                <p><strong>$29/month</strong></p>
+            </div>
+            <div class="pricing-box">
+                <h3>Premium Plan</h3>
+                <p>All-inclusive access with advanced features.</p>
+                <p><strong>$69/month</strong></p>
+            </div>
+            <div class="pricing-box">
+                <h3>Ultimate Plan</h3>
+                <p>Exclusive features with tailored options.</p>
+                <p><strong>$99/month</strong></p>
+            </div>
+        </div>
+    </section>
+    
+    
+    <section id="subscribe" class="hidden">
+        <h2>Subscribe</h2>
+        <p>Stay updated with the latest news and offers. Enter your email below to subscribe:</p>
+        <form class="subscribe-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+    
+    
+    <section class="hero">
+        <div class="content">
+            <h1>LAMBORGHINI BACKGROUND</h1>
+            <p>Lamborghini, founded in 1963 in Italy, is a luxury sports car brand known for high-performance vehicles and bold designs.<br> 
+                <br>Owned by the Volkswagen Group under Audi, it produces iconic models like the Aventador, Huracán, and Urus. 
+                <br>With a strategy of limited production and innovation, <br>
+                <br>Lamborghini remains a top name in the luxury car industry while embracing hybrid and electric technology for the future.</p>
+            <a href="#" class="btn">Learn More</a>
+        </div>
+        <div class="video-container">
+            <iframe 
+                id="youtube-video"
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/g-MX2u-DiMo?enablejsapi=1" 
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navLinks = document.querySelectorAll('nav ul li a');
+        const sections = document.querySelectorAll('section');
+
+        // Function to hide all sections
+        function hideAllSections() {
+            sections.forEach(section => {
+                section.classList.add('hidden');
+                section.classList.remove('showing');
+            });
+        }
+
+        // Navigation links functionality
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent default link behavior
+
+                // Hide all sections first
+                hideAllSections();
+
+                // Show the corresponding section
+                const targetId = this.textContent.toLowerCase();
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                    targetSection.classList.add('showing');
+                }
+            });
+        });
+
+        // Logo functionality to show only the hero section
+        const logo = document.querySelector('.logo');
+        const heroSection = document.querySelector('.hero');
+
+        logo.addEventListener('click', function () {
+            // Hide all sections first
+            hideAllSections();
+
+            // Show only the hero section
+            heroSection.classList.remove('hidden');
+            heroSection.classList.add('showing');
+        });
+    });
+</script>
+
+    
+    <script>
+        var player;
+        var bgPlayer;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-video', {
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+
+            bgPlayer = new YT.Player('background-video', {
+                events: {
+                    'onReady': function(event) {
+                        event.target.mute();
+                    }
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            let bgContainer = document.querySelector('.background-video-container');
+            if (event.data == YT.PlayerState.PLAYING) {
+                bgContainer.style.display = 'flex';
+                bgContainer.style.opacity = '0.6'; // Semi-transparent effect
+            } else {
+                bgContainer.style.display = 'none';
+            }
+        }
+
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+    
+</body>
+</html>
